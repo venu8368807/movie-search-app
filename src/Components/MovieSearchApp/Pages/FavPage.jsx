@@ -1,5 +1,5 @@
 import React from "react";
-import "../CSS/favorites.css";
+import "../CSS/Favorites.css";
 import { useMovieContext } from "../contexts/MovieContext";
 import MovieCard from "../MovieCard";
 
