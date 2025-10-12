@@ -5,17 +5,19 @@ function NavBar() {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <h3  className="brand-link">
-          Movie Search App
-        </h3>
+        <h3 className="brand-link">MovieQuest</h3>
       </div>
       <div className="navbar-links">
-        <Link to="/" className="nav-link">
-          Home  
-        </Link>
-        <Link to="/favorites" className="nav-link">
-          Favorites
-        </Link>
+        <button style={{ backgroundColor: "white" }}>
+          <Link to="/" className="nav-link">
+            Home
+          </Link>
+        </button>
+        <button style={{ backgroundColor: "white" }}>
+          <Link to="/favorites" className="nav-link">
+            Favorites
+          </Link>
+        </button>
       </div>
     </nav>
   );

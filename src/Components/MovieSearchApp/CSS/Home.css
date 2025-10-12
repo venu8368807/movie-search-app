@@ -55,18 +55,435 @@
 
 .movies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  padding: 1rem;
-  width: 100%;
-  box-sizing: border-box;
+  grid-template-columns: repeat(5, 1fr);
+  /* exactly 5 columns */
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
 }
+
+
+
 .no-movies {
-  font-size: 48px;        
-  font-weight: bold;       
-  text-align: center;      
-  position: absolute;      
-  top: 50%;                
+  font-size: 48px;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
+}
+
+/* src/CSS/Home.css */
+.load-more {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #ff3b3f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.load-more:hover {
+  background-color: #e13236;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.filter-bar select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.filter-bar select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top: 4px solid #ff4757;
+  /* accent color */
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.skeleton-card {
+  background: #2f2f2f;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 180px;
+  height: 300px;
+  position: relative;
+}
+
+.skeleton-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent);
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* 🌞 Light Theme (default) */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --card-bg: #f3f3f3;
+  --button-bg: #000000;
+  --button-text: #ffffff;
+}
+
+/* 🌚 Dark Theme */
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --card-bg: #1e1e1e;
+  --button-bg: #ffffff;
+  --button-text: #000000;
+}
+
+/* Use variables in body and components */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.movie-card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s ease;
+}
+
+button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
+}
+
+.theme-toggle button {
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+/* src/Components/MovieSearchApp/CSS/Home.css */
+
+
+
+
+
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.scroll-to-top:hover {
+  background-color: #e63939;
+  transform: scale(1.1);
+}
+
+
+.cast-section h3 {
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+
+
+
+
+
+
+.actor-name {
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.character-name {
+  font-size: 0.9em;
+  color: gray;
+}
+
+/* 🔲 Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow-y: auto;
+  /* scroll only modal content */
+  padding: 40px 20px;
+}
+
+/* 🪟 Modal Content */
+.modal-content {
+  background: var(--card-bg, #1e1e1e);
+  color: var(--text-color, #fff);
+  border-radius: 15px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  /* don't exceed viewport height */
+  overflow-y: auto;
+  /* scroll inside modal */
+  padding: 25px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 📜 When modal scrolls, hide background scroll */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* 🎞 Poster */
+.modal-poster {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+
+
+
+/* 🎭 Cast */
+.cast-section {
+  margin-top: 20px;
+}
+
+.cast-list {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding-bottom: 10px;
+}
+
+.cast-card {
+  flex: 0 0 auto;
+  text-align: center;
+  width: 100px;
+}
+
+.cast-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* ❌ Close Button */
+.close-btn {
+  background: #ff4747;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+  align-self: flex-end;
+}
+
+.close-btn:hover {
+  background: #ff2d2d;
+}
+
+/* ✨ Fade Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.platforms {
+  margin-top: 15px;
+}
+
+.platform-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.platform-card {
+  text-align: center;
+  width: 80px;
+}
+
+.platform-card img {
+  width: 100%;
+  border-radius: 8px;
+  background: #222;
+  padding: 5px;
+}
+
+.platform-card p {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  color: #ccc;
+}
+
+.rainbow-title {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(90deg,
+      red,
+      orange,
+      yellow,
+      green,
+      blue,
+      indigo,
+      violet);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.search-form {
+  position: relative;
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  /* solid white background */
+  color: #333;
+  /* dark text */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  /* subtle shadow */
+}
+
+.suggestions-dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestions-dropdown li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.suggestions-dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .suggestions-dropdown {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+  border: 1px solid #444;
+}
+
+[data-theme="dark"] .suggestions-dropdown li:hover {
+  background-color: #333;
+}
+
+.suggestions-dropdown li.highlighted {
+  background-color: #007bff;
+  /* blue highlight */
+  color: #fff;
+  /* white text */
+}
+
+[data-theme="dark"] .suggestions-dropdown li.highlighted {
+  background-color: #3390ff;
+  color: #fff;
 }
